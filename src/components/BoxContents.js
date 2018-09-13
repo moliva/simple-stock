@@ -23,13 +23,13 @@ export default class BoxContents extends Component {
     const boxNumber = match.params.number
 
     if (boxNumber) {
-      const current = boxes.find(box => box.number === boxNumber)
+      const current = boxes.find(box => box.number == boxNumber)
       if (current) {
         return  <div>
                   <h2>Box {current.number}</h2>
                   <ul>
                     {current.items.map(item => 
-                      <li>{item.name}</li>
+                      <li key={'item-' + item.name}>{item.name}</li>
                     )}
                   </ul>
                 </div>
@@ -40,11 +40,11 @@ export default class BoxContents extends Component {
     
     return  <div>
               {boxes.map(box =>
-                <div>
+                <div key={'box-contents-' + box.number}>
                   <h2>Box {box.number}</h2>
                   <ul>
                     {box.items.map(item => 
-                      <li>{item.name}</li>
+                      <li key={'item-' + item.name}>{item.name}</li>
                     )} 
                   </ul>
                 </div>

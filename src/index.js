@@ -4,6 +4,9 @@ import createHistory from 'history/createBrowserHistory';
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.min.js'
+
 const store = configureStore();
 const history = createHistory();
 
