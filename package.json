@@ -15,6 +15,18 @@
     "postversion": "git push && git push --tags && npm run clean",
     "prepublish": "npm run clean && npm run build"
   },
+  "gh-pages-deploy": {
+    "staticpath": "dist",
+    "prep": [
+      "clean",
+      "build"
+    ],
+    "commit": "Deploy",
+    "post": [
+      "clean"
+    ],
+    "noprompt": false
+  },
   "devDependencies": {
     "babel-cli": "^6.22.0",
     "babel-eslint": "^5.0.0",
