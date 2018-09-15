@@ -24,7 +24,7 @@
     ],
     "commit": "Deploy",
     "post": [
-      // "clean"
+      
     ],
     "noprompt": false
   },
