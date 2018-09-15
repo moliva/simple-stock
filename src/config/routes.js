@@ -5,7 +5,7 @@ import BoxContents from '../components/BoxContents'
 
 export default (
   <Switch>
-    <Route exact path="/:number?" component={BoxContents} />
+    <Route exact path={process.env.PUBLIC_URL + "/:number?"} component={BoxContents} />
     <Route component={NotFoundPage} />
   </Switch>
 );
