@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.[hash].js',
-    publicPath: '/'
+    publicPath: '/simple-stock/'
   },
   plugins: [
     new webpack.DefinePlugin({
