@@ -19,12 +19,9 @@
   "gh-pages-deploy": {
     "staticpath": "dist",
     "prep": [
-      "clean",
-      "build"
     ],
     "commit": "Deploy",
     "post": [
-      "clean"
     ],
     "noprompt": false
   },
