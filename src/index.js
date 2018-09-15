@@ -8,7 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.min.js'
 
 const store = configureStore();
-const history = createHistory();
+const history = createHistory({
+  basename: process.env.PUBLIC_URL,
+});
 
 render(
   <Root store={store} history={history} />,
