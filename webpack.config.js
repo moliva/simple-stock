@@ -28,7 +28,8 @@ const config = port => ({
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('development'),
+        PUBLIC_URL: JSON.stringify('') 
       }
     }),
     new HtmlWebpackPlugin({

@@ -3,19 +3,22 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const publicUrl = '/simple-stock'
+
 module.exports = {
   devtool: 'source-map',
   entry: './src/index',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.[hash].js',
-    publicPath: '/simple-stock/'
+    publicPath: publicUrl + '/'
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
+        NODE_ENV: JSON.stringify('production'),
+        PUBLIC_URL: JSON.stringify(publicUrl) 
+      }, 
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
