@@ -30,7 +30,7 @@ export default class Boxes extends Component {
       <ul className='nav nav-pills nav-fill'>
         {boxes.map(box =>
           <li className='nav-item' key={'menu-' + box.number}>
-            <a id='btnBox1' href={boxNumber == box.number ? '/' : box.number} className={
+            <a id='btnBox1' href={boxNumber == box.number ? process.env.PUBLIC_URL + '/' : box.number} className={
               stylesBox[box.number - 1].class + (boxNumber == box.number ? ' ' + styles.active : '') + ' nav-link border'
             } 
              style={stylesBox[box.number - 1].style}>{box.number}</a>
