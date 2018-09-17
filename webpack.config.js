@@ -21,7 +21,8 @@ const config = port => ({
     hot: true,
     historyApiFallback: true,
     stats: 'errors-only',
-    clientLogLevel: 'error'
+    clientLogLevel: 'error',
+    headers: { "Access-Control-Allow-Origin": "*" }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -29,7 +30,8 @@ const config = port => ({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
-        PUBLIC_URL: JSON.stringify('') 
+        PUBLIC_URL: JSON.stringify(''),
+        BACKEND_URL: JSON.stringify('http://localhost:8080')
       }
     }),
     new HtmlWebpackPlugin({

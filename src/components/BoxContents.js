@@ -50,16 +50,5 @@ export default class BoxContents extends Component {
                 </div>
               )}
             </div>
-
-
-    // return (
-    //   <div className={styles.boxes}>
-    //     <ul>
-    //       {boxes.map(box =>
-    //         <li><a href={box.number} className={styles.box}>{box.number}</a></li>
-    //       )}
-    //     </ul>
-    //   </div>
-    // );
   }
 }

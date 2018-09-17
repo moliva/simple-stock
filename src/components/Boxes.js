@@ -24,8 +24,6 @@ export default class Boxes extends Component {
       { class: 'btn-warning progress-bar-striped', style: { } }
     ]
 
-    console.log(styles)
-
     return (
       <ul className='nav nav-pills nav-fill'>
         {boxes.map(box =>

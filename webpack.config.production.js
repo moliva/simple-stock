@@ -17,7 +17,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-        PUBLIC_URL: JSON.stringify(publicUrl) 
+        PUBLIC_URL: JSON.stringify(publicUrl),
+        BACKEND_URL: JSON.stringify('https://simple-stock-service.herokuapp.com')
       }, 
     }),
     new webpack.optimize.UglifyJsPlugin({
