@@ -23,9 +23,7 @@
       "build"
     ],
     "commit": "Deploy",
-    "post": [
-      
-    ],
+    "post": [],
     "noprompt": false
   },
   "devDependencies": {
@@ -70,8 +68,11 @@
     "bootstrap": "^4.1.3",
     "es6-promise": "^4.2.5",
     "fetch": "^1.1.0",
+    "fuse-js-latest": "^3.1.0",
     "history": "^4.6.1",
     "isomorphic-fetch": "^2.2.1",
+    "jquery": "^1.9.1",
+    "popper.js": "^1.14.4",
     "prop-types": "^15.5.8",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",

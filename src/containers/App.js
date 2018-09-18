@@ -11,6 +11,7 @@ import { loadBoxes } from '../actions/boxes'
   return {
     boxes: store.boxes.boxes,
     boxesFetching: store.boxes.fetching,
+    filter: store.filter,
     currentBox: store.routing.location.pathname.slice(1)
   }
 })
@@ -20,7 +21,7 @@ export default class App extends Component {
     children: PropTypes.any.isRequired,
     boxes: PropTypes.array.isRequired,
     boxesFetching: PropTypes.bool.isRequired,
-    styles: PropTypes.object
+    styles: PropTypes.object,
   }
 
   componentWillMount() {
@@ -28,11 +29,11 @@ export default class App extends Component {
   }
 
   render() {
-    const { children, styles, boxes, boxesFetching, currentBox } = this.props;
+    const { children, styles, boxes, boxesFetching, currentBox, filter } = this.props;
 
     return (
       <div className='container' style={{ paddingTop: 10 }}>
-        <Search />
+        <Search filter={filter} />
         <Boxes boxes={boxes} boxNumber={currentBox} />
         {children}
       </div>
