@@ -34,9 +34,6 @@ export default class Search extends Component {
     return (
         <div className='input-group mb-3'>
           <input type="search" className='form-control' value={this.state.value} onChange={this.handleChange} />
-          <div className="input-group-append">
-            <a href="#" className='input-group-append btn btn-primary input-group-text'>Search</a>
-          </div>
         </div>
     )
   }

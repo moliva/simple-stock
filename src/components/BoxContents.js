@@ -23,13 +23,14 @@ export default class BoxContents extends Component {
     const options = {
       shouldSort: true,
       findAllMatches: true,
-      threshold: 0.6,
+      threshold: 0.4,
       location: 0,
       distance: 100,
       maxPatternLength: 32,
       minMatchCharLength: 1,
       keys: [
-        'name'
+        'name',
+        'items.name'
       ]
     }
     const fuse = new Fuse(boxes, options)
@@ -53,7 +54,8 @@ export default class BoxContents extends Component {
         }
       }
     
-    const toShow = this.isBlank(filter) ? boxes_ : boxes_.map(box => ({ number: box.number, items: this.filterContent(box.items, filter) }))
+    let toShow = this.isBlank(filter) ? boxes_ : boxes_.map(box => ({ number: box.number, items: this.filterContent(box.items, filter) }))
+    toShow = this.isBlank(filter) ? toShow : this.filterContent(toShow, filter)
       
     return  <div>
               {toShow.map(box =>
