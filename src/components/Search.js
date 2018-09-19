@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { TextInput } from 'react-router-dom'
 import { updateFilter } from '../actions/filter'
 import { connect } from 'react-redux'
 
