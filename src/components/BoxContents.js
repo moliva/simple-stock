@@ -41,13 +41,6 @@ export default class BoxContents extends Component {
       boxes: nextProps.boxes
     })
   }
-  // static getDerivedStateFromProps(props, state) {
-  //   console.log('derived')
-  //   console.log(props)
-  //   return {...state,
-  //     boxes: props.boxes
-  //   }
-  // }
 
   filterContent(boxes, filter) {
     const options = {
@@ -87,12 +80,16 @@ export default class BoxContents extends Component {
     return (event) => {
       const newItem = { name: 'Nuevo' }
       const newBoxes = [...this.state.boxes]
-      newBoxes[box - 1].items.push(newItem)
-      this.props.dispatch(createItem(box, newItem))
+      const newItems = newBoxes[box - 1].items.slice()
+      newItems.push(newItem)
+      // console.log(newBoxes[box - 1].items)
+      newBoxes[box - 1].items = newItems
+      // console.log(newItems)
       this.setState({...this.resetEditing(this.state),
         editing: { box, item: newBoxes[box - 1].items.length - 1, name: newItem.name },
         boxes: newBoxes
       })
+      this.props.dispatch(createItem(box, newItem))
     }
   }
 

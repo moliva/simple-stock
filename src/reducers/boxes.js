@@ -39,10 +39,16 @@ export default (state=initialState, action) => {
       return state
     }
     case 'ITEM_CREATE_FULFILLED': {
-      console.log(action.payload)
-      const newBoxes = [...state.boxes]
-      newBoxes[action.payload.boxNumber - 1].items.push(action.payload.item)
-      return {...state, boxes: newBoxes }
+      // const newBoxes = [...state.boxes]
+      // const newBox = {...newBoxes[action.payload.boxNumber - 1]}
+      // const newItems = newBox.items.slice()
+      // newItems.push(action.payload.item)
+      // newBox.items = newItems
+      // newBoxes[action.payload.boxNumber - 1] = newBox
+      // console.log(newItems)
+      // console.log(state.boxes[action.payload.boxNumber - 1].items)
+      // return {...state, boxes: newBoxes }
+      return state
     }
     case 'ITEM_CREATE_REJECTED': {
       return state
