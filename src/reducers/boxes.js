@@ -35,6 +35,18 @@ export default (state=initialState, action) => {
     case 'ITEM_DELETE_REJECTED': {
       return state
     }
+    case 'ITEM_CREATE_PENDING': {
+      return state
+    }
+    case 'ITEM_CREATE_FULFILLED': {
+      console.log(action.payload)
+      const newBoxes = [...state.boxes]
+      newBoxes[action.payload.boxNumber - 1].items.push(action.payload.item)
+      return {...state, boxes: newBoxes }
+    }
+    case 'ITEM_CREATE_REJECTED': {
+      return state
+    }
   }
   return state
 }

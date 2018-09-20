@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
 import styles from '../style/counter.scss';
-import { updateItem, removeItem } from '../actions/boxes'
+import { updateItem, removeItem, createItem } from '../actions/boxes'
 import { connect } from 'react-redux'
 import Fuse from 'fuse-js-latest'
 
@@ -27,6 +27,7 @@ export default class BoxContents extends Component {
     this.onCancel = this.onCancel.bind(this)
     this.onRemove = this.onRemove.bind(this)
     this.onEdit = this.onEdit.bind(this)
+    this.onNewItem = this.onNewItem.bind(this)
   }
 
   state = {
@@ -80,6 +81,19 @@ export default class BoxContents extends Component {
 
   onSave(event) {
     this.props.dispatch(updateItem(this.state.editing))
+  }
+
+  onNewItem(box) {
+    return (event) => {
+      const newItem = { name: 'Nuevo' }
+      const newBoxes = [...this.state.boxes]
+      newBoxes[box - 1].items.push(newItem)
+      this.props.dispatch(createItem(box, newItem))
+      this.setState({...this.resetEditing(this.state),
+        editing: { box, item: newBoxes[box - 1].items.length - 1, name: newItem.name },
+        boxes: newBoxes
+      })
+    }
   }
 
   onCancel(event) {
@@ -140,7 +154,7 @@ export default class BoxContents extends Component {
     return  <div>
               {toShow.map(box =>
                 <div key={'box-contents-' + box.number}>
-                  <h2>Box {box.number}</h2>
+                  <p className="lead">Box {box.number} <a href="#" className="badge badge-success" onClick={this.onNewItem(box.number)}>+</a></p>
                   {/* TODO - implement new item */}
                   {/* <h2>Box {box.number} <a href="#" className="badge badge-success">New item</a></h2> */}
                   <ul>

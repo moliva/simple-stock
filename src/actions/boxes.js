@@ -43,3 +43,24 @@ export function removeItem(editing) {
                 .then(response => editing)
   }
 }
+
+export function createItem(boxNumber, item) {
+  return { 
+    type: 'ITEM_CREATE', 
+    payload: fetch(`${process.env.BACKEND_URL}/boxes/${boxNumber}/items`, 
+                { 
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(item)
+                })
+                .then(response =>  {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    return response;
+                })
+                .then(response => ({ boxNumber, item }))
+  }
+}
