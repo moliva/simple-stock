@@ -38,6 +38,11 @@ body {
   border: 1px solid ivory;
   padding-left: 1rem;
   font-size: 1rem;
+  outline: none;
+}
+
+.filter-input:focus {
+  box-shadow: 0 0 1rem 1px rgba(255, 255, 240, 0.5);
 }
 
 .filter-clear-button {
@@ -46,6 +51,24 @@ body {
   border: 1px solid ivory;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
+  outline: none;
+  text-align: center;
+  color: gray;
+  font-weight: 100;
+}
+
+.filter-clear-button:hover,
+.filter-clear-button:focus,
+.filter-clear-button-focus {
+  box-shadow: 0 0 1rem 1px rgba(255, 255, 240, 0.5);
+}
+
+.filter-clear-button:hover,
+.filter-clear-button:focus {
+  color: red;
+  font-weight: 700;
+
+  transition: all 200ms ease;
 }
 
 .boxes {
@@ -67,6 +90,7 @@ body {
   cursor: pointer;
   box-shadow: 0 0rem 1rem 1px rgba(255, 255, 240, 0.1);
   border: 0;
+  outline: none;
 }
 
 @media only screen and (min-width: 800px) {
