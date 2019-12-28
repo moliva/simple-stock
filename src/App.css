@@ -104,11 +104,29 @@ body {
 }
 
 .box-7 {
-  background-color: turquoise;
+  --color-1: rgb(64, 224, 208);
+  --color-2: rgb(52, 255, 235);
+
+  background: repeating-linear-gradient(
+    -55deg,
+    var(--color-1),
+    var(--color-1) 10px,
+    var(--color-2) 10px,
+    var(--color-2) 20px
+  );
 }
 
 .box-8 {
-  background-color: orange;
+  --color-1: rgb(255, 165, 0);
+  --color-2: rgb(253, 200, 100);
+
+  background: repeating-linear-gradient(
+    -55deg,
+    var(--color-1),
+    var(--color-1) 10px,
+    var(--color-2) 10px,
+    var(--color-2) 20px
+  );
 }
 
 .main {
