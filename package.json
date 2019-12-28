@@ -26,6 +26,7 @@
     "eject": "react-scripts eject",
     "deploy": "gh-pages-deploy -- 'a'"
   },
+  "homepage": "https://moliva.github.io/simple-stock",
   "gh-pages-deploy": {
     "staticpath": "build",
     "prep": [
