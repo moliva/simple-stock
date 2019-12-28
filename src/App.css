@@ -81,13 +81,13 @@ body {
 }
 
 .box {
-  --size: 3rem;
+  --size: 2.5rem;
   line-height: var(--size);
   min-width: var(--size);
 
   border-radius: 10%;
   margin: 2px;
-  font-size: xx-large;
+  font-size: x-large;
   cursor: pointer;
   box-shadow: 0 0rem 1rem 1px rgba(255, 255, 240, 0.1);
   border: 0;
@@ -97,6 +97,7 @@ body {
 @media only screen and (min-width: 800px) {
   .box {
     --size: 5rem;
+    font-size: xx-large;
   }
 }
 
