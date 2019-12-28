@@ -1,0 +1,113 @@
+body {
+  background-color: rgb(40, 44, 52);
+  color: white;
+}
+
+.container {
+  margin: 1rem 0;
+}
+
+@media only screen and (min-width: 800px) {
+  .container {
+    margin: 1rem 4rem;
+  }
+}
+
+.header {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.filter {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  min-height: 2rem;
+}
+
+.filter-input {
+  flex-grow: 1;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid ivory;
+  padding-left: 1rem;
+  font-size: 1rem;
+}
+
+.filter-clear-button {
+  width: 2rem;
+  font-size: 1rem;
+  border: 1px solid ivory;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.boxes {
+  margin-top: 1rem;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.box {
+  --size: 3.5rem;
+  line-height: var(--size);
+  min-width: var(--size);
+
+  border-radius: 10%;
+  margin: 2px;
+  font-size: xx-large;
+  cursor: pointer;
+  box-shadow: 0 0rem 1rem 1px rgba(255, 255, 240, 0.1);
+  border: 0;
+}
+
+@media only screen and (min-width: 800px) {
+  .box {
+    --size: 5rem;
+  }
+}
+
+.box:hover {
+  box-shadow: 0 0rem 1rem 1px rgba(255, 255, 240, 0.5);
+}
+
+.box-1 {
+  background-color: greenyellow;
+}
+
+.box-2 {
+  background-color: purple;
+}
+
+.box-3 {
+  background-color: rgb(247, 247, 215);
+}
+
+.box-4 {
+  background-color: pink;
+}
+
+.box-5 {
+  background-color: orange;
+}
+
+.box-6 {
+  background-color: turquoise;
+}
+
+.box-7 {
+  background-color: turquoise;
+}
+
+.box-8 {
+  background-color: orange;
+}
+
+.main {
+  margin: 0 1rem;
+}
