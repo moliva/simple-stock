@@ -164,7 +164,6 @@ body {
 }
 
 .box-contents-item:hover {
-  cursor: pointer;
   text-shadow: 0 0 8px rgba(255, 255, 240, 0.5);
   font-weight: 700;
 }

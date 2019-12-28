@@ -23,7 +23,18 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages-deploy -- 'a'"
+  },
+  "gh-pages-deploy": {
+    "staticpath": "build",
+    "prep": [
+      "clean",
+      "build"
+    ],
+    "commit": "Deploy",
+    "post": [],
+    "noprompt": false
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages-deploy": "^0.5.1"
   }
 }
