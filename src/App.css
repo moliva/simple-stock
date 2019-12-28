@@ -4,6 +4,7 @@ body {
 
   display: flex;
   justify-content: center;
+  flex-wrap: nowrap;
 }
 
 .container {
@@ -80,7 +81,7 @@ body {
 }
 
 .box {
-  --size: 3.5rem;
+  --size: 3rem;
   line-height: var(--size);
   min-width: var(--size);
 
@@ -155,4 +156,61 @@ body {
 
 .main {
   margin: 0 1rem;
+}
+
+.box-contents-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.box-contents-item:hover {
+  cursor: pointer;
+  text-shadow: 0 0 8px rgba(255, 255, 240, 0.5);
+  font-weight: 700;
+}
+
+.box-contents-item-controls {
+  margin: 0 15px;
+  display: inline;
+  color: gray;
+}
+
+.box-contents-item-control {
+  margin: 0 0 0 5px;
+  cursor: pointer;
+  color: var(--color);
+}
+
+.box-contents-item-control:hover {
+  filter: drop-shadow(0 0 8px var(--color));
+}
+
+.remove {
+  --color: tomato;
+}
+
+.edit {
+  --color: aquamarine;
+}
+
+.confirm {
+  --color: lightgreen;
+}
+
+.add {
+  --color: yellow;
+}
+
+.box-contents-name:hover {
+  text-shadow: 0 0 8px rgba(255, 255, 240, 0.5);
+  font-weight: 900;
+}
+
+.edit-input {
+  flex-grow: 1;
+  border-radius: 5px;
+  border: 1px solid ivory;
+  padding-left: 1rem;
+  font-size: 1rem;
+  outline: none;
 }

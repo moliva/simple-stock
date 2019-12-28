@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse-js-latest";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEraser,
+  faTrashAlt,
+  faEdit,
+  faPlus,
+  faBan,
+  faCheck
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./App.css";
 
@@ -28,7 +37,7 @@ const Filter = (props: { onChange: (value: string) => void }) => {
         }
         onClick={() => onValueChanged("")}
       >
-        x
+        <FontAwesomeIcon icon={faEraser} />
       </button>
     </div>
   );
@@ -38,7 +47,11 @@ const backendUrl = "https://simple-stock-service.herokuapp.com";
 
 type Box = {
   number: number;
-  items: { name: string }[];
+  items: Item[];
+};
+
+type Item = {
+  name: string;
 };
 
 const App: React.FC = () => {
@@ -69,6 +82,67 @@ const App: React.FC = () => {
     };
     const fuse = new Fuse(boxes, options);
     return fuse.search(filter);
+  }
+
+  function removeItem(box: Box, item: Item) {
+    fetch(
+      `${backendUrl}/boxes/${box.number}/items/${box.items.indexOf(item)}`,
+      { method: "DELETE" }
+    ).then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+
+      setBoxes(
+        boxes?.map(current =>
+          current === box
+            ? { ...box, items: box.items.filter(it => it !== item) }
+            : current
+        )
+      );
+    });
+  }
+
+  function editItem(box: Box, old: Item, edited: Item) {
+    fetch(`${backendUrl}/boxes/${box.number}/items/${box.items.indexOf(old)}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(edited)
+    }).then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+
+      setBoxes(
+        boxes?.map(current =>
+          current === box
+            ? { ...box, items: box.items.map(it => (it === old ? edited : it)) }
+            : current
+        )
+      );
+    });
+  }
+
+  function addItem(box: Box, item: Item) {
+    fetch(`${backendUrl}/boxes/${box.number}/items`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(item)
+    }).then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+
+      setBoxes(
+        boxes?.map(current =>
+          current === box ? { ...box, items: [...box.items, item] } : current
+        )
+      );
+    });
   }
 
   let toShow: any = isBlank(filter)
@@ -103,24 +177,129 @@ const App: React.FC = () => {
           <div className="boxes-loading">loading...</div>
         ) : (
           toShow.map((box: Box) => (
-            <div className="box-contents" key={`box-contents-${box.number}`}>
-              <h3 className="box-contents-name">Box {box.number}</h3>
-              <ul className="box-contents-list">
-                {box.items.map((item, i) => (
-                  <li
-                    key={`box-contents-item-${box.number}-${i}`}
-                    className="box-contents-item"
-                  >
-                    {item.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Box
+              box={box}
+              key={`box-contents-${box.number}`}
+              onRemoveItem={removeItem}
+              onEditItem={(box, item, edited) => editItem(box, item, edited)}
+              onAddItem={item => addItem(box, item)}
+            ></Box>
           ))
         )}
       </main>
     </div>
   );
 };
+
+function Box(props: {
+  box: Box;
+  onRemoveItem: (box: Box, item: Item) => void;
+  onEditItem: (box: Box, item: Item, edited: Item) => void;
+  onAddItem: (item: Item) => void;
+}) {
+  const { box, onRemoveItem, onEditItem, onAddItem } = props;
+  const [showMenu, setShowMenu] = useState(false);
+  return (
+    <div className="box-contents">
+      <h3
+        className="box-contents-name"
+        onMouseEnter={() => setShowMenu(true)}
+        onMouseLeave={() => setShowMenu(false)}
+      >
+        Box {box.number}
+        {showMenu ? (
+          <div className="box-contents-item-controls">
+            <FontAwesomeIcon
+              icon={faPlus}
+              onClick={() => onAddItem({ name: "Nuevo" })}
+              className="box-contents-item-control add"
+            ></FontAwesomeIcon>
+          </div>
+        ) : (
+          ""
+        )}
+      </h3>
+      <ul className="box-contents-list">
+        {box.items.map((item, i) => (
+          <Item
+            item={item}
+            key={`box-contents-item-${box.number}-${i}`}
+            onRemove={() => onRemoveItem(box, item)}
+            onEdit={newItem => onEditItem(box, item, newItem)}
+          ></Item>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Item(props: {
+  item: Item;
+  onRemove: () => void;
+  onEdit: (newItem: Item) => void;
+}) {
+  const { item } = props;
+  const [showMenu, setShowMenu] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(item.name);
+
+  return (
+    <li
+      className="box-contents-item"
+      onMouseEnter={() => setShowMenu(true)}
+      onMouseLeave={() => setShowMenu(false)}
+    >
+      {editing ? (
+        <input
+          className="edit-input"
+          value={value}
+          autoFocus={true}
+          onChange={e => setValue(e.target.value)}
+        ></input>
+      ) : (
+        item.name
+      )}
+      {showMenu ? (
+        editing ? (
+          <div className="box-contents-item-controls">
+            <FontAwesomeIcon
+              icon={faBan}
+              onClick={() => {
+                setEditing(false);
+              }}
+              className="box-contents-item-control remove"
+            ></FontAwesomeIcon>
+            <FontAwesomeIcon
+              icon={faCheck}
+              onClick={() => {
+                props.onEdit({ ...item, name: value });
+                setEditing(false);
+              }}
+              className="box-contents-item-control confirm"
+            ></FontAwesomeIcon>
+          </div>
+        ) : (
+          <div className="box-contents-item-controls">
+            <FontAwesomeIcon
+              icon={faTrashAlt}
+              onClick={props.onRemove}
+              className="box-contents-item-control remove"
+            ></FontAwesomeIcon>
+            <FontAwesomeIcon
+              icon={faEdit}
+              onClick={() => {
+                setValue(item.name);
+                setEditing(true);
+              }}
+              className="box-contents-item-control edit"
+            ></FontAwesomeIcon>
+          </div>
+        )
+      ) : (
+        ""
+      )}
+    </li>
+  );
+}
 
 export default App;
