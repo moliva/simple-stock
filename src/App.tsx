@@ -86,7 +86,9 @@ const App: React.FC = () => {
 
   function removeItem(box: Box, item: Item) {
     fetch(
-      `${backendUrl}/boxes/${box.number}/items/${box.items.indexOf(item)}`,
+      `${backendUrl}/boxes/${box.number}/items/${boxes!
+        .find(b => b.number === box.number)!
+        .items.indexOf(item)}`,
       { method: "DELETE" }
     ).then(response => {
       if (!response.ok) {
