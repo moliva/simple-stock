@@ -3,9 +3,10 @@ import Fuse from "fuse-js-latest";
 import { Box, Item } from "./types";
 import { BoxContents } from "./components/BoxContents";
 import { Filter } from "./components/Filter";
+import { Boxes } from "./components/Boxes";
+import { Spin } from "./components/Spin";
 
 import "./styles/App.css";
-import { Boxes } from "./components/Boxes";
 
 const backendUrl = "https://simple-stock-service.herokuapp.com";
 
@@ -134,7 +135,7 @@ const App: React.FC = () => {
       <header className="header">
         <Filter onChange={value => setFilter(value)}></Filter>
         {boxes === undefined ? (
-          <div className="boxes-loading">loading...</div>
+          <Spin />
         ) : (
           <Boxes
             boxes={boxes}
@@ -144,7 +145,7 @@ const App: React.FC = () => {
       </header>
       <main className="main">
         {toShow === undefined ? (
-          <div className="boxes-loading">loading...</div>
+          <Spin />
         ) : toShow.length === 0 ? (
           <div className="boxes-empty">No hay nada que coincida :'(</div>
         ) : (
