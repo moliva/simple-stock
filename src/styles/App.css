@@ -1,24 +1,30 @@
 body {
   background-color: rgb(40, 44, 52);
   color: white;
-
-  display: flex;
-  justify-content: center;
-  flex-wrap: nowrap;
 }
 
 .container {
   margin: 1rem 0;
+  display: flex;
+  justify-content: center;
 }
 
 @media only screen and (min-width: 800px) {
   .container {
-    margin: 1rem 4rem;
+    margin: 1rem 5rem;
   }
 }
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+
+  padding: 10px 0;
   background-color: #282c34;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -164,7 +170,16 @@ body {
 }
 
 .main {
-  margin: 0 1rem;
+  margin: 110px 1rem 0;
+  width: 100%;
+  max-width: 300px;
+}
+
+@media only screen and (min-width: 800px) {
+  .main {
+    margin-top: 160px;
+    max-width: 600px;
+  }
 }
 
 .box-contents-list {

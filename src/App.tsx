@@ -131,17 +131,19 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="container">
+    <section className="container">
       <header className="header">
-        <Filter onChange={value => setFilter(value)}></Filter>
-        {boxes === undefined ? (
-          <Spin />
-        ) : (
-          <Boxes
-            boxes={boxes}
-            onBoxSelected={selected => setSelected(selected)}
-          ></Boxes>
-        )}
+        <div className="nav-bar">
+          <Filter onChange={value => setFilter(value)}></Filter>
+          {boxes === undefined ? (
+            <Spin />
+          ) : (
+            <Boxes
+              boxes={boxes}
+              onBoxSelected={selected => setSelected(selected)}
+            ></Boxes>
+          )}
+        </div>
       </header>
       <main className="main">
         {toShow === undefined ? (
@@ -160,7 +162,7 @@ const App: React.FC = () => {
           ))
         )}
       </main>
-    </div>
+    </section>
   );
 };
 

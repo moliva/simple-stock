@@ -20,7 +20,7 @@ export const Filter = (props: { onChange: (value: string) => void }) => {
         onChange={e => onValueChanged(e.target.value)}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
-        placeholder="bananas..."
+        placeholder="Filter..."
       ></input>
       <button
         className={
