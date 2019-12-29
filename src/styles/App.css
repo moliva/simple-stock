@@ -30,6 +30,8 @@ body {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+
+  box-shadow: 0 0 1rem 1px rgb(40, 44, 52);
 }
 
 .filter {
@@ -121,31 +123,40 @@ body {
 
 .box-1 {
   --bcolor: greenyellow;
+  --ccolor: rgba(173, 255, 47, 0.03);
 }
 
 .box-2 {
   --bcolor: purple;
+  --ccolor: rgba(128, 0, 128, 0.03);
 }
 
 .box-3 {
   --bcolor: rgb(247, 247, 215);
+  --ccolor: rgba(247, 247, 215, 0.03);
 }
 
 .box-4 {
   --bcolor: pink;
+  --ccolor: rgba(255, 192, 203, 0.03);
 }
 
 .box-5 {
   --bcolor: orange;
+  --ccolor: rgba(255, 165, 0, 0.03);
 }
 
 .box-6 {
   --bcolor: turquoise;
+  --ccolor: rgba(64, 224, 208, 0.03);
 }
 
 .box-7 {
   --color-1: rgb(64, 224, 208);
   --color-2: rgb(52, 255, 235);
+
+  --color-1a: rgba(64, 224, 208, 0.03);
+  --color-2a: rgba(52, 255, 235, 0.02);
 
   --bcolor: repeating-linear-gradient(
     -55deg,
@@ -153,6 +164,13 @@ body {
     var(--color-1) 10px,
     var(--color-2) 10px,
     var(--color-2) 20px
+  );
+  --ccolor: repeating-linear-gradient(
+    -55deg,
+    var(--color-1a),
+    var(--color-1a) 10px,
+    var(--color-2a) 10px,
+    var(--color-2a) 20px
   );
 }
 
@@ -160,6 +178,9 @@ body {
   --color-1: rgb(255, 165, 0);
   --color-2: rgb(253, 200, 100);
 
+  --color-1a: rgba(255, 165, 0, 0.03);
+  --color-2a: rgba(253, 200, 100, 0.03);
+
   --bcolor: repeating-linear-gradient(
     -55deg,
     var(--color-1),
@@ -167,19 +188,35 @@ body {
     var(--color-2) 10px,
     var(--color-2) 20px
   );
+  --ccolor: repeating-linear-gradient(
+    -55deg,
+    var(--color-1a),
+    var(--color-1a) 10px,
+    var(--color-2a) 10px,
+    var(--color-2a) 20px
+  );
 }
 
 .main {
-  margin: 80px 1rem 0;
+  margin: 105px 1rem 0;
   width: 100%;
   max-width: 300px;
 }
 
 @media only screen and (min-width: 800px) {
   .main {
-    margin-top: 130px;
+    margin-top: 150px;
     max-width: 600px;
   }
+}
+
+.box-contents {
+  border: 1px solid transparent;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 0 1rem;
+
+  background: var(--ccolor);
 }
 
 .box-contents-list {

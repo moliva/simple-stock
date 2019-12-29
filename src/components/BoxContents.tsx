@@ -13,7 +13,7 @@ export function BoxContents(props: {
   const { box, onRemoveItem, onEditItem, onAddItem } = props;
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <div className="box-contents">
+    <div className={`box-contents box-${box.number}`}>
       <h3
         className="box-contents-name"
         onMouseEnter={() => setShowMenu(true)}
