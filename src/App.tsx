@@ -190,6 +190,8 @@ const App: React.FC = () => {
       <main className="main">
         {toShow === undefined ? (
           <div className="boxes-loading">loading...</div>
+        ) : toShow.length === 0 ? (
+          <div className="boxes-empty">No hay nada que coincida :'(</div>
         ) : (
           toShow.map((box: Box) => (
             <Box
@@ -258,6 +260,11 @@ function Item(props: {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(item.name);
 
+  function confirm() {
+    props.onEdit({ ...item, name: value });
+    setEditing(false);
+  }
+
   return (
     <li
       className="box-contents-item"
@@ -269,6 +276,11 @@ function Item(props: {
           className="edit-input"
           value={value}
           autoFocus={true}
+          onKeyDown={ev => {
+            if (ev.keyCode === 13) {
+              confirm();
+            }
+          }}
           onChange={e => setValue(e.target.value)}
         ></input>
       ) : (
@@ -286,10 +298,7 @@ function Item(props: {
             ></FontAwesomeIcon>
             <FontAwesomeIcon
               icon={faCheck}
-              onClick={() => {
-                props.onEdit({ ...item, name: value });
-                setEditing(false);
-              }}
+              onClick={() => confirm()}
               className="box-contents-item-control confirm"
             ></FontAwesomeIcon>
           </div>
