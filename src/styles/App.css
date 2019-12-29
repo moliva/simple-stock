@@ -85,6 +85,7 @@ body {
   line-height: var(--size);
   min-width: var(--size);
   color: white;
+  background: var(--bcolor);
   text-shadow: 0 0 5px black;
 
   border-radius: 10%;
@@ -103,39 +104,44 @@ body {
   }
 }
 
+.box.selected {
+  box-shadow: 0 0rem 2rem 5px rgba(255, 255, 240, 0.5);
+  opacity: 0.9;
+}
+
 .box:hover {
   box-shadow: 0 0rem 1rem 1px rgba(255, 255, 240, 0.5);
 }
 
 .box-1 {
-  background-color: greenyellow;
+  --bcolor: greenyellow;
 }
 
 .box-2 {
-  background-color: purple;
+  --bcolor: purple;
 }
 
 .box-3 {
-  background-color: rgb(247, 247, 215);
+  --bcolor: rgb(247, 247, 215);
 }
 
 .box-4 {
-  background-color: pink;
+  --bcolor: pink;
 }
 
 .box-5 {
-  background-color: orange;
+  --bcolor: orange;
 }
 
 .box-6 {
-  background-color: turquoise;
+  --bcolor: turquoise;
 }
 
 .box-7 {
   --color-1: rgb(64, 224, 208);
   --color-2: rgb(52, 255, 235);
 
-  background: repeating-linear-gradient(
+  --bcolor: repeating-linear-gradient(
     -55deg,
     var(--color-1),
     var(--color-1) 10px,
@@ -148,7 +154,7 @@ body {
   --color-1: rgb(255, 165, 0);
   --color-2: rgb(253, 200, 100);
 
-  background: repeating-linear-gradient(
+  --bcolor: repeating-linear-gradient(
     -55deg,
     var(--color-1),
     var(--color-1) 10px,
@@ -172,7 +178,7 @@ body {
 }
 
 .box-contents-item-controls {
-  margin: 0 15px;
+  margin: 0 5px;
   display: inline;
   color: gray;
 }

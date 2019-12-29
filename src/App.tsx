@@ -5,13 +5,14 @@ import { BoxContents } from "./components/BoxContents";
 import { Filter } from "./components/Filter";
 
 import "./styles/App.css";
+import { Boxes } from "./components/Boxes";
 
 const backendUrl = "https://simple-stock-service.herokuapp.com";
 
 const App: React.FC = () => {
   const [boxes, setBoxes] = useState<undefined | Box[]>(undefined);
   const [filter, setFilter] = useState("");
-  const [selected, setSelected] = useState<Box | null>(null);
+  const [selected, setSelected] = useState<number | null>(null);
 
   useEffect(() => {
     fetch(backendUrl + "/boxes")
@@ -114,7 +115,7 @@ const App: React.FC = () => {
 
   if (boxes) {
     // filter on;ly by the box selected if any
-    toShow = selected ? [selected] : boxes;
+    toShow = selected ? boxes.filter(box => box.number === selected) : boxes;
 
     // filter items in boxes if filter is active
     toShow = isBlank(filter)
@@ -161,31 +162,5 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-function Boxes(props: {
-  boxes: Box[];
-  onBoxSelected: (box: Box | null) => void;
-}) {
-  const { boxes, onBoxSelected } = props;
-  const [selected, setSelected] = useState<Box | null>(null);
-
-  return (
-    <div className="boxes">
-      {boxes.map(box => (
-        <button
-          key={`box-${box.number}`}
-          className={`box box-${box.number}`}
-          onClick={() => {
-            const current = selected === box ? null : box;
-            setSelected(current);
-            onBoxSelected(current);
-          }}
-        >
-          {box.number}
-        </button>
-      ))}
-    </div>
-  );
-}
 
 export default App;
