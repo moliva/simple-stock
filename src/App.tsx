@@ -69,7 +69,7 @@ const App: React.FC = () => {
     return !str || /^\s*$/.test(str);
   }
 
-  function filterContent(boxes: Box["items"], filter: string) {
+  function filterContent<T>(boxes: T[], filter: string) {
     const options = {
       shouldSort: true,
       findAllMatches: true,
@@ -81,7 +81,7 @@ const App: React.FC = () => {
       keys: ["name", "items.name"]
     };
     const fuse = new Fuse(boxes, options);
-    return fuse.search(filter);
+    return fuse.search<T>(filter);
   }
 
   function removeItem(box: Box, item: Item) {
@@ -97,8 +97,8 @@ const App: React.FC = () => {
 
       setBoxes(
         boxes?.map(current =>
-          current === box
-            ? { ...box, items: box.items.filter(it => it !== item) }
+          current.number === box.number
+            ? { ...current, items: current.items.filter(it => it !== item) }
             : current
         )
       );
@@ -106,21 +106,29 @@ const App: React.FC = () => {
   }
 
   function editItem(box: Box, old: Item, edited: Item) {
-    fetch(`${backendUrl}/boxes/${box.number}/items/${box.items.indexOf(old)}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(edited)
-    }).then(response => {
+    fetch(
+      `${backendUrl}/boxes/${box.number}/items/${boxes!
+        .find(b => b.number === box.number)!
+        .items.indexOf(old)}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(edited)
+      }
+    ).then(response => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
 
       setBoxes(
         boxes?.map(current =>
-          current === box
-            ? { ...box, items: box.items.map(it => (it === old ? edited : it)) }
+          current.number === box.number
+            ? {
+                ...current,
+                items: current.items.map(it => (it === old ? edited : it))
+              }
             : current
         )
       );
@@ -147,13 +155,18 @@ const App: React.FC = () => {
     });
   }
 
-  let toShow: any = isBlank(filter)
-    ? boxes
-    : boxes?.map(box => ({
-        number: box.number,
-        items: filterContent(box.items, filter)
-      }));
-  toShow = isBlank(filter) ? toShow : filterContent(toShow, filter);
+  let toShow: Box[] | undefined;
+
+  if (boxes) {
+    toShow = isBlank(filter)
+      ? boxes
+      : boxes?.map(box => ({
+          ...box,
+          items: filterContent(box.items, filter)
+        }));
+
+    toShow = isBlank(filter) ? toShow : filterContent(toShow, filter);
+  }
 
   return (
     <div className="container">
