@@ -64,6 +64,8 @@ body {
   text-align: center;
   color: gray;
   font-weight: 100;
+
+  background: white;
 }
 
 .filter-clear-button:hover,
