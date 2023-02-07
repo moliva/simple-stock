@@ -307,3 +307,8 @@ body {
   margin-left: 1rem;
   border-radius: 15%;
 }
+
+.button {
+  cursor: pointer;
+  color: white;
+}
