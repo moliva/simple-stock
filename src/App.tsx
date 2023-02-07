@@ -275,6 +275,7 @@ const Nav = (props: { identity: IdentityState; dispatch: any }) => {
              <img
                className="profile-picture tiny"
                src={identity.identity.picture}
+               title={identity.identity.name}
                crossOrigin="anonymous"
                referrerPolicy="no-referrer"
                alt="profile"
