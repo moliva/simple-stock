@@ -2,7 +2,8 @@ import React, { useState, useEffect, useReducer } from "react";
 import { BrowserRouter, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faDoorOpen
+  faSignIn,
+  faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
 
 import queryString from "query-string";
@@ -44,7 +45,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!identity) {
-      // only do stuff when identity is set
+      setBoxes(undefined);
+      setFilter("");
+      setSelected(null);
+      setPicture(undefined);
       return;
     }
 
@@ -53,7 +57,7 @@ const App: React.FC = () => {
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
-          "Content-Type": "image/*",
+          Accept: "image/*",
           Authorization: identity.token,
         },
       });
@@ -61,7 +65,6 @@ const App: React.FC = () => {
       const image = await response.text();
 
       setPicture(image);
-      console.log(image);
     };
 
     fetchPicture().catch(console.error);
@@ -215,17 +218,19 @@ const App: React.FC = () => {
     <section className="container">
       <BrowserRouter>
         <header className="header">
-          <Nav identity={identity} dispatch={dispatch} />
-          <div className="nav-bar">
-            <Filter onChange={(value) => setFilter(value)}></Filter>
-            {boxes === undefined ? (
-              <Spin />
-            ) : (
-              <Boxes
-                boxes={boxes}
-                onBoxSelected={(selected) => setSelected(selected)}
-              ></Boxes>
-            )}
+          <div className="navs">
+            <Nav identity={identity} dispatch={dispatch} />
+            <div className="nav-bar">
+              <Filter onChange={(value) => setFilter(value)}></Filter>
+              {boxes === undefined ? (
+                <Spin />
+              ) : (
+                <Boxes
+                  boxes={boxes}
+                  onBoxSelected={(selected) => setSelected(selected)}
+                ></Boxes>
+              )}
+            </div>
           </div>
         </header>
         <main className="main">
@@ -271,8 +276,9 @@ const Nav = (props: { identity: IdentityState; dispatch: any }) => {
     <nav className="nav">
       {identity ? (
         <div className="profile-card right">
+          <div style={{width: "100%", flexGrow: 1}}></div>
           <FontAwesomeIcon
-            icon={faDoorOpen}
+            icon={faSignOut}
             onClick={() => {
                props.dispatch({ type: "logout" });
                navigate(`/`);
@@ -289,11 +295,15 @@ const Nav = (props: { identity: IdentityState; dispatch: any }) => {
           ></img>
         </div>
       ) : (
-        <a href={`${API_HOST}/login`}>
-        <FontAwesomeIcon
-            icon={faDoorOpen}
-            className="button tiny"
-        ></FontAwesomeIcon></a>
+        <div className="profile-card right">
+          <div style={{width: "100%", flexGrow: 1}}></div>
+          <a href={`${API_HOST}/login`}>
+           <FontAwesomeIcon
+               icon={faSignIn}
+               className="button tiny"
+           />
+        </a>
+        </div>
       )}
     </nav>
   );

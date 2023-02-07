@@ -297,10 +297,17 @@ body {
 }
 
 .nav {
+  position: relative;
 }
 
 .tiny {
   max-height: 2rem;
+}
+
+.profile-card {
+  display: flex;
+  margin-bottom: 0.5rem;
+  align-items: center;
 }
 
 .profile-picture {
