@@ -37,37 +37,23 @@ const identityReducer = (state: any = {}, action: Action): IdentityState => {
 
 const App: React.FC = () => {
   const [identity, dispatch] = useReducer(identityReducer, undefined);
-  const [picture, setPicture] = useState<string | undefined>();
 
   const [boxes, setBoxes] = useState<undefined | Box[]>(undefined);
   const [filter, setFilter] = useState("");
   const [selected, setSelected] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (!identity) {
+  const clearState = () => {
       setBoxes(undefined);
       setFilter("");
       setSelected(null);
-      setPicture(undefined);
+  }
+
+  useEffect(() => {
+    if (!identity) {
+      clearState();
       return;
     }
 
-    const fetchPicture = async () => {
-      const response = await fetch(identity.identity.picture, {
-        mode: "cors", // no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-          Accept: "image/*",
-          Authorization: identity.token,
-        },
-      });
-
-      const image = await response.text();
-
-      setPicture(image);
-    };
-
-    fetchPicture().catch(console.error);
   }, [identity]);
 
   useEffect(() => {
@@ -274,37 +260,35 @@ const Nav = (props: { identity: IdentityState; dispatch: any }) => {
 
   return (
     <nav className="nav">
-      {identity ? (
         <div className="profile-card right">
           <div style={{width: "100%", flexGrow: 1}}></div>
-          <FontAwesomeIcon
-            icon={faSignOut}
-            onClick={() => {
-               props.dispatch({ type: "logout" });
-               navigate(`/`);
-             }}
-             className="button tiny"
-           ></FontAwesomeIcon>
-          {//<span className="nav-name">{identity.identity.email}</span>
-          }
-          <img
-            className="profile-picture tiny"
-            src={identity.identity.picture}
-            crossOrigin="anonymous"
-            alt="profile"
-          ></img>
-        </div>
-      ) : (
-        <div className="profile-card right">
-          <div style={{width: "100%", flexGrow: 1}}></div>
+          {identity ? (
+            <>
+             <FontAwesomeIcon
+               icon={faSignOut}
+               onClick={() => {
+                  props.dispatch({ type: "logout" });
+                  navigate(`/`);
+                }}
+                className="button tiny"
+              ></FontAwesomeIcon>
+             <img
+               className="profile-picture tiny"
+               src={identity.identity.picture}
+               crossOrigin="anonymous"
+               referrerPolicy="no-referrer"
+               alt="profile"
+              />
+            </>
+          ) : (
           <a href={`${API_HOST}/login`}>
-           <FontAwesomeIcon
-               icon={faSignIn}
-               className="button tiny"
-           />
-        </a>
+            <FontAwesomeIcon
+                 icon={faSignIn}
+                 className="button tiny"
+             />
+          </a>
+          )}
         </div>
-      )}
     </nav>
   );
 };
