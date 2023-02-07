@@ -6,3 +6,4 @@ export type Box = {
 export type Item = {
   name: string;
 };
+
