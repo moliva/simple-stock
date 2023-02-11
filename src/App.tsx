@@ -43,9 +43,9 @@ const App: React.FC = () => {
   const [selected, setSelected] = useState<number | null>(null);
 
   const clearState = () => {
-      setBoxes(undefined);
-      setFilter("");
-      setSelected(null);
+    setBoxes(undefined);
+    setFilter("");
+    setSelected(null);
   }
 
   useEffect(() => {
@@ -99,8 +99,8 @@ const App: React.FC = () => {
 
   function removeItem(box: Box, item: Item) {
     const itemIndex = boxes!
-        .find((b) => b.number === box.number)!
-        .items.indexOf(item);
+      .find((b) => b.number === box.number)!
+      .items.indexOf(item);
     backendFetch(
       `/boxes/${box.number}/items/${itemIndex}`,
       {
@@ -124,8 +124,8 @@ const App: React.FC = () => {
 
   function editItem(box: Box, old: Item, edited: Item) {
     const itemIndex = boxes!
-        .find((b) => b.number === box.number)!
-        .items.indexOf(old);
+      .find((b) => b.number === box.number)!
+      .items.indexOf(old);
 
     backendFetch(
       `/boxes/${box.number}/items/${itemIndex}`,
@@ -143,9 +143,9 @@ const App: React.FC = () => {
         boxes?.map((current) =>
           current.number === box.number
             ? {
-                ...current,
-                items: current.items.map((it) => (it === old ? edited : it)),
-              }
+              ...current,
+              items: current.items.map((it) => (it === old ? edited : it)),
+            }
             : current
         )
       );
@@ -170,16 +170,16 @@ const App: React.FC = () => {
   function addItem(box: Box, item: Item) {
     backendFetch(`/boxes/${box.number}/items`, { method: "POST", identity, body: JSON.stringify(item) })
       .then((response) => {
-       if (!response.ok) {
-         throw Error(response.statusText);
-       }
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
 
-       setBoxes(
-         boxes?.map((current) =>
-           current === box ? { ...box, items: [...box.items, item] } : current
-         )
-       );
-    });
+        setBoxes(
+          boxes?.map((current) =>
+            current === box ? { ...box, items: [...box.items, item] } : current
+          )
+        );
+      });
   }
 
   let toShow: Box[] | undefined;
@@ -192,9 +192,9 @@ const App: React.FC = () => {
     toShow = isBlank(filter)
       ? toShow
       : toShow.map((box) => ({
-          ...box,
-          items: filterContent(box.items, filter),
-        }));
+        ...box,
+        items: filterContent(box.items, filter),
+      }));
 
     // filter only boxes with content if filter active
     toShow = isBlank(filter) ? toShow : filterContent(toShow, filter);
@@ -260,36 +260,36 @@ const Nav = (props: { identity: IdentityState; dispatch: any }) => {
 
   return (
     <nav className="nav">
-        <div className="profile-card right">
-          <div style={{width: "100%", flexGrow: 1}}></div>
-          {identity ? (
-            <>
-             <FontAwesomeIcon
-               icon={faSignOut}
-               onClick={() => {
-                  props.dispatch({ type: "logout" });
-                  navigate(`/`);
-                }}
-                className="button tiny"
-              ></FontAwesomeIcon>
-             <img
-               className="profile-picture tiny"
-               src={identity.identity.picture}
-               title={identity.identity.name}
-               crossOrigin="anonymous"
-               referrerPolicy="no-referrer"
-               alt="profile"
-              />
-            </>
-          ) : (
+      <div className="profile-card right">
+        <div style={{ width: "100%", flexGrow: 1 }}></div>
+        {identity ? (
+          <>
+            <FontAwesomeIcon
+              icon={faSignOut}
+              onClick={() => {
+                props.dispatch({ type: "logout" });
+                navigate(`/`);
+              }}
+              className="button tiny"
+            ></FontAwesomeIcon>
+            <img
+              className="profile-picture tiny"
+              src={identity.identity.picture}
+              title={identity.identity.name}
+              crossOrigin="anonymous"
+              referrerPolicy="no-referrer"
+              alt="profile"
+            />
+          </>
+        ) : (
           <a href={`${API_HOST}/login`}>
             <FontAwesomeIcon
-                 icon={faSignIn}
-                 className="button tiny"
-             />
+              icon={faSignIn}
+              className="button tiny"
+            />
           </a>
-          )}
-        </div>
+        )}
+      </div>
     </nav>
   );
 };
